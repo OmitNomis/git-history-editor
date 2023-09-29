@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
 import { Flex, Box, Container, Heading, Text, Tabs, TabList, Tab, TabPanel, TabPanels } from '@chakra-ui/react'
-import AppIntroduction from "../components/AppIntroduction";
+import { AppIntroduction } from "../components/AppIntroduction";
 
 
 export const AppContent: FC = () => {

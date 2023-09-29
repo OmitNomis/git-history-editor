@@ -1,7 +1,7 @@
 import { Box, Button, Code, Flex, Heading, Text } from "@chakra-ui/react";
 import { FaCopy } from "react-icons/fa";
 
-export default function AppIntroduction() {
+export const AppIntroduction = () => {
     const handleClick = () => {
         const gitLogCommand = 'git log -100 --pretty=format:"%H*#%an*#%ae*#%at*#%s" | base64 | tr -d "\n"';
         navigator.clipboard.writeText(gitLogCommand);
@@ -60,10 +60,9 @@ export default function AppIntroduction() {
                     </Button>
                     <Code
                         colorScheme="gray"
-                        overflowY={"scroll"}
+                        overflowX={"scroll"}
                         p={4}
                         whiteSpace="nowrap"
-                        scrollBehavior={"smooth"}
                         children={`git log -100 --pretty=format:"%H*#%an*#%ae*#%at*#%s" | base64 | tr -d "\n"`}
 
                     />
