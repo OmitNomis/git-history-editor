@@ -1,6 +1,7 @@
 import { useState, FC } from 'react'
-import { Box, Button, Code, Flex, Heading, Text, Input } from "@chakra-ui/react";
+import { Box, Button, Code, Flex, Heading, Text, Input, useToast } from "@chakra-ui/react";
 import { FaCopy, FaDownload } from "react-icons/fa";
+import { b64UnicodeDecoder } from '../helpers';
 
 
 interface AppIntroductionProps {
@@ -10,6 +11,7 @@ interface AppIntroductionProps {
 export const AppIntroduction: FC<AppIntroductionProps> = ({ handleImport }) => {
 
     const [consoleOutput, setConsoleOutput] = useState<string>("");
+    const toast = useToast();
 
     const handleCodeCopy = () => {
         const gitLogCommand = 'git log -100 --pretty=format:"%H*#%an*#%ae*#%at*#%s" | base64 | tr -d "\n"';
@@ -18,7 +20,22 @@ export const AppIntroduction: FC<AppIntroductionProps> = ({ handleImport }) => {
 
     const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        handleImport(consoleOutput);
+        let decodedOutput;
+        try {
+            decodedOutput = b64UnicodeDecoder(consoleOutput.trim());
+            handleImport(decodedOutput.trim());
+        } catch (error) {
+            toast({
+                title: "Invalid Input",
+                description: "Please paste a valid Git log output.",
+                status: "error",
+                duration: 3000,
+                variant: 'top-accent',
+                isClosable: true,
+                position: "top"
+            });
+            return;
+        }
     }
 
     return (
