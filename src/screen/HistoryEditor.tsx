@@ -13,7 +13,6 @@ export const HistoryEditor: FC<HistoryEditorProps> = ({ commitHistory }) => {
     }, [commitHistory]);
 
     const manageCommitEdited = (commit: CommitHistory, index: number) => {
-        console.log('edited')
         const newCommitHistory: CommitHistory[] = [...currentCommitHistory];
         newCommitHistory[index] = commit;
         setCurrentCommitHistory(newCommitHistory);

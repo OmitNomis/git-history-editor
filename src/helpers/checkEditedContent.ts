@@ -24,3 +24,8 @@ export const checkSingleEditedCommit = (
   }
   return true;
 };
+
+export const checkEntireCommitHistory = (
+  originalCommitHistory: CommitHistory[],
+  editedCommitHistory: CommitHistory[]
+) => {};

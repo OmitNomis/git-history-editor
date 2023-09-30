@@ -9,7 +9,6 @@ export const TableFormRow: FC<TableFormRowProps> = ({ commit, index, onCommitEdi
     const [editedCommit, setEditedCommit] = useState<CommitHistory>(commit);
     const reset = () => {
         setEditedCommit(originalRow);
-        onCommitEdited(originalRow, index);
     }
 
     useEffect(() => {
@@ -17,8 +16,8 @@ export const TableFormRow: FC<TableFormRowProps> = ({ commit, index, onCommitEdi
     }, [editedCommit]);
 
     const checkEdited = () => {
-        const isEdited = checkSingleEditedCommit(originalRow, editedCommit)
         setEditedCommit((prev) => {
+            const isEdited = checkSingleEditedCommit(prev, editedCommit)
             return {
                 ...prev,
                 edited: isEdited
