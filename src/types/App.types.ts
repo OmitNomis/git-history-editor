@@ -2,7 +2,7 @@ export interface CommitHistory {
   hash: string;
   authorName: string;
   authorEmail: string;
-  date: string;
+  time: string;
   message: string;
 }
 
@@ -12,4 +12,9 @@ export interface AppIntroductionProps {
 
 export interface HistoryEditorProps {
   commitHistory: CommitHistory[];
+}
+
+export interface TableFormRowProps {
+  commit: CommitHistory;
+  index: number;
 }

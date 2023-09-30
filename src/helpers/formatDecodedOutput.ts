@@ -1,6 +1,8 @@
+import { CommitHistory } from "../types/App.types";
+
 export const formatDecodedOutput = (decodedOutput: any) => {
   let commitStr = decodedOutput.split(/\n/);
-  let commits: any = [];
+  let commits: CommitHistory[] = [];
 
   try {
     commitStr.map((commit: any) => {
@@ -8,11 +10,11 @@ export const formatDecodedOutput = (decodedOutput: any) => {
       if (split.length !== 5) {
         throw new Error("Invalid commit format");
       }
-      let [hash, name, email, time, message] = split;
+      let [hash, authorName, authorEmail, time, message] = split;
       let commitObj = {
         hash,
-        name,
-        email,
+        authorName,
+        authorEmail,
         time,
         message,
       };

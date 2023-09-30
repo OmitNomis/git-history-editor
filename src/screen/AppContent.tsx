@@ -20,7 +20,7 @@ export const AppContent: FC = () => {
             const parsedOutput = formatDecodedOutput(output);
             setIsValidDataLoaded(true);
             setCommitHistory(parsedOutput);
-            handleTabsChange(1) //switch to edit tab
+            handleTabsChange(1)
         } catch {
             toast({
                 title: "Invalid Input",
@@ -30,7 +30,6 @@ export const AppContent: FC = () => {
                 position: "top-right",
                 isClosable: true,
                 variant: 'top-accent'
-
             })
             return;
 
