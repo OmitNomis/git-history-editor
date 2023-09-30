@@ -56,6 +56,10 @@ export const HistoryEditor: FC<HistoryEditorProps> = ({ commitHistory }) => {
                             ? "No commits changed"
                             : `${getNumberOfCommitsChanged()} commit${getNumberOfCommitsChanged() > 1 ? "s" : ""} changed`
                     }</Text>
+
+                    <Text color={'GrayText'} mt={3}>
+                        Click on any field to edit, and press Done when you're finished.
+                    </Text>
                 </Box>
                 <Box>
                     {/* done button with tick mark icon at left */}

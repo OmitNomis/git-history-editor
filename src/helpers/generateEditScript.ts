@@ -32,21 +32,21 @@ export const generateEditScript = (editedContent: CommitHistory[]) => {
       }
     });
     script += `fi'`;
-    if (messageDiffList.length > 0) {
-      script += ` --msg-filter \\\n`;
-      messageDiffList.map((commit: CommitHistory, index: number) => {
-        script += `${index === 0 ? "'if" : "elif"} test "$GIT_COMMIT" = "${
-          commit.hash
-        }"; then\n`;
-        script += `\techo "${commit.message}"\n`;
-      });
-      script += `else cat\nfi'`;
-    }
-    script += ` ${lastHash.slice(
-      0,
-      7
-    )}^..HEAD && rm -fr "$(git rev-parse --git-dir)/refs/original/"`;
   }
+  if (messageDiffList.length > 0) {
+    script += ` --msg-filter \\\n`;
+    messageDiffList.map((commit: CommitHistory, index: number) => {
+      script += `${index === 0 ? "'if" : "elif"} test "$GIT_COMMIT" = "${
+        commit.hash
+      }"; then\n`;
+      script += `\techo "${commit.message}"\n`;
+    });
+    script += `else cat\nfi'`;
+  }
+  script += ` ${lastHash.slice(
+    0,
+    7
+  )}^..HEAD && rm -fr "$(git rev-parse --git-dir)/refs/original/"`;
 
   return script;
 };
