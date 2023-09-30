@@ -25,21 +25,10 @@ export const checkSingleEditedCommit = (
   return true;
 };
 
-export const checkEntireCommitHistory = (
-  editedCommitHistory: CommitHistory[]
-) => {
-  editedCommitHistory.map((editedCommit) => {
-    if (editedCommit.edited === true) {
-      return true;
-    }
-    return false;
-  });
-};
-
 export const countEditedCommits = (editedCommitHistory: CommitHistory[]) => {
   let count = 0;
   editedCommitHistory.map((editedCommit) => {
-    if (editedCommit.edited === true) {
+    if (Object.values(editedCommit.edited).includes(true)) {
       count++;
     }
   });
