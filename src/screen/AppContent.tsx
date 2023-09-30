@@ -17,6 +17,7 @@ export const AppContent: FC = () => {
     const [tabIndex, setTabIndex] = useState(0);
     const [originalCommitHistory, setOriginalCommitHistory] = useState<CommitHistory[]>([]);
     const [commitHistory, setCommitHistory] = useState<CommitHistory[]>([]);
+    const [isValidDataLoaded, setIsValidDataLoaded] = useState<boolean>(false);
 
     const handleTabsChange = (index: number) => {
 
@@ -28,6 +29,8 @@ export const AppContent: FC = () => {
             const parsedOutput = formatDecodedOutput(output);
             setOriginalCommitHistory(parsedOutput);
             setCommitHistory(parsedOutput);
+            setIsValidDataLoaded(true);
+            handleTabsChange(1)
         } catch {
             toast({
                 title: "Invalid Input",
@@ -49,14 +52,14 @@ export const AppContent: FC = () => {
             <Tabs tabIndex={tabIndex} onChange={handleTabsChange} isFitted variant={"line"}>
                 <TabList mb={10}>
                     <Tab>Import</Tab>
-                    <Tab isDisabled>Edit</Tab>
+                    <Tab isDisabled={!isValidDataLoaded}>Edit</Tab>
                 </TabList>
                 <TabPanels>
                     <TabPanel>
                         <AppIntroduction handleImport={handleImport} />
                     </TabPanel>
                     <TabPanel>
-                        <>Hello World</>
+
                     </TabPanel>
                 </TabPanels>
             </Tabs>
