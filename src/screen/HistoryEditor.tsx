@@ -1,8 +1,8 @@
 import { FC, useEffect, useState } from "react";
 import { CommitHistory, HistoryEditorProps } from "../types/App.types";
-import { Box, TableContainer, Table, Thead, Tbody, Th, Tr, Flex, Text, IconButton, Icon, Button } from "@chakra-ui/react";
+import { Box, TableContainer, Table, Thead, Tbody, Th, Tr, Flex, Text, Icon, Button } from "@chakra-ui/react";
 import { TableFormRow } from "../components/TableFormRow";
-import { countEditedCommits } from "../helpers";
+import { countEditedCommits, generateEditScript } from "../helpers";
 import { FaCheck } from "react-icons/fa";
 
 export const HistoryEditor: FC<HistoryEditorProps> = ({ commitHistory }) => {
@@ -23,7 +23,8 @@ export const HistoryEditor: FC<HistoryEditorProps> = ({ commitHistory }) => {
     }
 
     const handleDoneClick = () => {
-        console.log("Done clicked");
+        console.log(generateEditScript(currentCommitHistory));
+
     }
 
 

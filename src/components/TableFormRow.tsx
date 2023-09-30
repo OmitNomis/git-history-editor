@@ -3,7 +3,7 @@ import { FC, useEffect, useState } from 'react'
 import { TableFormRowProps } from '../types/App.types'
 import { CommitHistory } from '../types/App.types'
 import { FaUndo } from 'react-icons/fa'
-import { checkSingleEditedCommit, checkSingleEditedContent } from '../helpers'
+import { checkSingleEditedContent } from '../helpers'
 
 export const TableFormRow: FC<TableFormRowProps> = ({ commit, index, onCommitEdited, originalRow }) => {
     const [editedCommit, setEditedCommit] = useState<CommitHistory>(commit);
@@ -15,31 +15,27 @@ export const TableFormRow: FC<TableFormRowProps> = ({ commit, index, onCommitEdi
         onCommitEdited(editedCommit, index);
     }, [editedCommit]);
 
-    const checkEdited = () => {
-        setEditedCommit((prev) => {
-            const isEdited = checkSingleEditedCommit(prev, editedCommit)
-            return {
-                ...prev,
-                edited: isEdited
-            }
-        })
-    }
 
     const handleChange = (e: any, field: string) => {
         setEditedCommit({
             ...editedCommit,
-            [field]: e.target.value
+            [field]: e.target.value,
+            edited: {
+                ...editedCommit.edited,
+                [field]: checkSingleEditedContent(originalRow[field], e.target.value)
+            }
         })
-        checkEdited();
     }
-
+    const checkAnyEdited = () => {
+        return Object.values(editedCommit.edited).some((value) => value === true);
+    }
 
     return (
         <>
             <Box position={"relative"} h={'full'}>
                 <Icon
-                    cursor={editedCommit.edited ? 'pointer' : 'not-allowed'}
-                    color={checkSingleEditedCommit(originalRow, editedCommit) ? 'red' : 'gray.500'}
+                    cursor={checkAnyEdited() ? 'pointer' : 'not-allowed'}
+                    color={checkAnyEdited() ? 'red' : 'gray.500'}
                     position={"absolute"}
                     as={FaUndo}
                     onClick={reset}
@@ -51,7 +47,7 @@ export const TableFormRow: FC<TableFormRowProps> = ({ commit, index, onCommitEdi
                 <Td>{editedCommit.hash.slice(0, 7)}</Td>
                 <Td>
                     <Editable
-                        color={checkSingleEditedContent(originalRow.authorName, editedCommit.authorName) ? 'red' : 'black'}
+                        color={editedCommit.edited.authorName ? 'red' : 'black'}
                         value={editedCommit.authorName}>
                         <EditablePreview />
                         <EditableInput
@@ -60,8 +56,9 @@ export const TableFormRow: FC<TableFormRowProps> = ({ commit, index, onCommitEdi
                         />
                     </Editable></Td>
                 <Td>
-                    <Editable value={editedCommit.authorEmail}
-                        color={checkSingleEditedContent(originalRow.authorEmail, editedCommit.authorEmail) ? 'red' : 'black'}
+                    <Editable
+                        value={editedCommit.authorEmail}
+                        color={editedCommit.edited.authorEmail ? 'red' : 'black'}
                     >
                         <EditablePreview />
                         <EditableInput
@@ -72,14 +69,17 @@ export const TableFormRow: FC<TableFormRowProps> = ({ commit, index, onCommitEdi
                 </Td>
                 <Td>
                     <Input
-                        color={checkSingleEditedContent(originalRow.dateTime, editedCommit.dateTime) ? 'red' : 'black'}
+                        color={editedCommit.edited.dateTime ? 'red' : 'black'}
                         value={editedCommit.dateTime}
                         type='datetime-local'
                         onChange={(e) => handleChange(e, 'dateTime')}
                     />
                 </Td>
                 <Td>
-                    <Editable value={editedCommit.message} color={checkSingleEditedContent(originalRow.message, editedCommit.message) ? 'red' : 'black'}>
+                    <Editable
+                        value={editedCommit.message}
+                        color={editedCommit.edited.message ? 'red' : 'black'}
+                    >
                         <EditablePreview />
                         <EditableInput
                             value={editedCommit.message}
