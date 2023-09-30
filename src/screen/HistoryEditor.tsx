@@ -1,8 +1,9 @@
 import { FC, useEffect, useState } from "react";
 import { CommitHistory, HistoryEditorProps } from "../types/App.types";
-import { Box, TableContainer, Table, Thead, Tbody, Th, Tr } from "@chakra-ui/react";
+import { Box, TableContainer, Table, Thead, Tbody, Th, Tr, Flex, Text, IconButton, Icon, Button } from "@chakra-ui/react";
 import { TableFormRow } from "../components/TableFormRow";
-
+import { countEditedCommits } from "../helpers";
+import { FaCheck } from "react-icons/fa";
 
 export const HistoryEditor: FC<HistoryEditorProps> = ({ commitHistory }) => {
     const originalCommitHistory: CommitHistory[] = commitHistory;
@@ -17,9 +18,39 @@ export const HistoryEditor: FC<HistoryEditorProps> = ({ commitHistory }) => {
         newCommitHistory[index] = commit;
         setCurrentCommitHistory(newCommitHistory);
     }
+    const getNumberOfCommitsChanged = () => {
+        return countEditedCommits(currentCommitHistory);
+    }
+
+    const handleDoneClick = () => {
+        console.log("Done clicked");
+    }
+
 
     return (
-        <Box p={4}>
+        <Box>
+            <Flex mb={10} alignItems={'center'} justifyContent={'space-between'} >
+                <Box>
+                    <Text fontWeight={'semibold'}>{
+                        getNumberOfCommitsChanged() === 0
+                            ? "No commits changed"
+                            : `${getNumberOfCommitsChanged()} commit${getNumberOfCommitsChanged() > 1 ? "s" : ""} changed`
+                    }</Text>
+                </Box>
+                <Box>
+                    {/* done button with tick mark icon at left */}
+                    <Button
+                        isDisabled={getNumberOfCommitsChanged() === 0}
+                        onClick={handleDoneClick}
+                        leftIcon={<Icon as={FaCheck} />}
+                        colorScheme={"green"}
+                        variant={"outline"}
+                        mr={2}
+                    >
+                        Done
+                    </Button>
+                </Box>
+            </Flex>
             <TableContainer >
                 <Table variant={"striped"} colorScheme={"gray"}>
                     <Thead>

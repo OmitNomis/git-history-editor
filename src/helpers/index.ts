@@ -4,6 +4,8 @@ import { formatMillisecondToDate } from "./formatMillisecondToDate";
 import {
   checkSingleEditedContent,
   checkSingleEditedCommit,
+  checkEntireCommitHistory,
+  countEditedCommits,
 } from "./checkEditedContent";
 
 export {
@@ -12,4 +14,6 @@ export {
   formatMillisecondToDate,
   checkSingleEditedContent,
   checkSingleEditedCommit,
+  checkEntireCommitHistory,
+  countEditedCommits,
 };
