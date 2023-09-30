@@ -1,20 +1,27 @@
-import { Tr, Td, Editable, EditableInput, EditablePreview, Box, Icon, Input } from '@chakra-ui/react'
-import { FC, useState } from 'react'
+import { Tr, Td, Editable, EditableInput, EditablePreview, Box, Icon, Input, } from '@chakra-ui/react'
+import { FC, useEffect, useState } from 'react'
 import { TableFormRowProps } from '../types/App.types'
 import { CommitHistory } from '../types/App.types'
 import { FaUndo } from 'react-icons/fa'
+import { checkSingleEditedCommit, checkSingleEditedContent } from '../helpers'
 
-export const TableFormRow: FC<TableFormRowProps> = ({ commit }) => {
-    const originalRow: CommitHistory = commit;
+export const TableFormRow: FC<TableFormRowProps> = ({ commit, index, onCommitEdited, originalRow }) => {
     const [editedCommit, setEditedCommit] = useState<CommitHistory>(commit);
     const reset = () => {
-        setEditedCommit(originalRow)
+        setEditedCommit(originalRow);
+        onCommitEdited(originalRow, index);
     }
+
+    useEffect(() => {
+        onCommitEdited(editedCommit, index);
+    }, [editedCommit]);
 
     return (
         <>
-            <Box position={"relative"}>
+            <Box position={"relative"} h={'full'}>
                 <Icon
+                    cursor={checkSingleEditedCommit(originalRow, editedCommit) ? 'pointer' : 'not-allowed'}
+                    color={checkSingleEditedCommit(originalRow, editedCommit) ? 'red' : 'gray.500'}
                     position={"absolute"}
                     as={FaUndo}
                     onClick={reset}
@@ -25,7 +32,9 @@ export const TableFormRow: FC<TableFormRowProps> = ({ commit }) => {
             <Tr key={editedCommit.hash}>
                 <Td>{editedCommit.hash.slice(0, 7)}</Td>
                 <Td>
-                    <Editable defaultValue={editedCommit.authorName}>
+                    <Editable
+                        color={checkSingleEditedContent(originalRow.authorName, editedCommit.authorName) ? 'red' : 'black'}
+                        value={editedCommit.authorName}>
                         <EditablePreview />
                         <EditableInput
                             value={editedCommit.authorName}
@@ -38,7 +47,9 @@ export const TableFormRow: FC<TableFormRowProps> = ({ commit }) => {
                         />
                     </Editable></Td>
                 <Td>
-                    <Editable defaultValue={editedCommit.authorEmail}>
+                    <Editable value={editedCommit.authorEmail}
+                        color={checkSingleEditedContent(originalRow.authorEmail, editedCommit.authorEmail) ? 'red' : 'black'}
+                    >
                         <EditablePreview />
                         <EditableInput
                             value={editedCommit.authorEmail}
@@ -53,6 +64,7 @@ export const TableFormRow: FC<TableFormRowProps> = ({ commit }) => {
                 </Td>
                 <Td>
                     <Input
+                        color={checkSingleEditedContent(originalRow.dateTime, editedCommit.dateTime) ? 'red' : 'black'}
                         value={editedCommit.dateTime}
                         type='datetime-local'
                         onChange={(e) => {
@@ -64,7 +76,7 @@ export const TableFormRow: FC<TableFormRowProps> = ({ commit }) => {
                     />
                 </Td>
                 <Td>
-                    <Editable defaultValue={editedCommit.message}>
+                    <Editable value={editedCommit.message} color={checkSingleEditedContent(originalRow.message, editedCommit.message) ? 'red' : 'black'}>
                         <EditablePreview />
                         <EditableInput
                             value={editedCommit.message}

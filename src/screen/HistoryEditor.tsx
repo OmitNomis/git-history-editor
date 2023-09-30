@@ -12,6 +12,13 @@ export const HistoryEditor: FC<HistoryEditorProps> = ({ commitHistory }) => {
         setCurrentCommitHistory(commitHistory);
     }, [commitHistory]);
 
+    const manageCommitEdited = (commit: CommitHistory, index: number) => {
+        console.log('edited')
+        const newCommitHistory: CommitHistory[] = [...currentCommitHistory];
+        newCommitHistory[index] = commit;
+        setCurrentCommitHistory(newCommitHistory);
+    }
+
     return (
         <Box p={4}>
             <TableContainer >
@@ -28,12 +35,13 @@ export const HistoryEditor: FC<HistoryEditorProps> = ({ commitHistory }) => {
                     <Tbody fontSize={13}>
                         {currentCommitHistory.map((commit: CommitHistory, index: number) => {
                             return (
-                                <>
-                                    <TableFormRow
-                                        index={index}
-                                        commit={commit}
-                                    />
-                                </>
+                                <TableFormRow
+                                    key={commit.hash}
+                                    index={index}
+                                    commit={commit}
+                                    onCommitEdited={manageCommitEdited}
+                                    originalRow={originalCommitHistory[index]}
+                                />
                             );
                         })}
                     </Tbody>

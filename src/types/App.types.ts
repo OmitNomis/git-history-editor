@@ -17,4 +17,6 @@ export interface HistoryEditorProps {
 export interface TableFormRowProps {
   commit: CommitHistory;
   index: number;
+  onCommitEdited: (commit: CommitHistory, index: number) => void;
+  originalRow: CommitHistory;
 }
