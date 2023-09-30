@@ -2,11 +2,7 @@ import { useState, FC } from 'react'
 import { Box, Button, Code, Flex, Heading, Text, Input, useToast } from "@chakra-ui/react";
 import { FaCopy, FaDownload } from "react-icons/fa";
 import { b64UnicodeDecoder } from '../helpers';
-
-
-interface AppIntroductionProps {
-    handleImport: (output: string) => void;
-}
+import { AppIntroductionProps } from '../types/App.types';
 
 export const AppIntroduction: FC<AppIntroductionProps> = ({ handleImport }) => {
 

@@ -2,14 +2,8 @@ import { FC, useState } from "react";
 import { Container, Tabs, TabList, Tab, TabPanel, TabPanels, useToast } from '@chakra-ui/react'
 import { AppIntroduction } from "../components/AppIntroduction";
 import { formatDecodedOutput } from "../helpers";
-
-interface CommitHistory {
-    hash: string;
-    authorName: string;
-    authorEmail: string;
-    date: string;
-    message: string;
-}
+import { CommitHistory } from "../types/App.types";
+import { HistoryEditor } from "./HistoryEditor";
 
 export const AppContent: FC = () => {
 
@@ -59,7 +53,7 @@ export const AppContent: FC = () => {
                         <AppIntroduction handleImport={handleImport} />
                     </TabPanel>
                     <TabPanel>
-
+                        <HistoryEditor />
                     </TabPanel>
                 </TabPanels>
             </Tabs>
