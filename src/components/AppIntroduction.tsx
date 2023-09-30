@@ -21,19 +21,20 @@ export const AppIntroduction: FC<AppIntroductionProps> = ({ handleImport }) => {
     const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         let decodedOutput;
+        const formattedConsoleOutput = consoleOutput.trim().replace(/\s+/g, '')
         try {
-            decodedOutput = b64UnicodeDecoder(consoleOutput.trim());
-            handleImport(decodedOutput.trim());
+            decodedOutput = b64UnicodeDecoder(formattedConsoleOutput);
+            handleImport(decodedOutput);
         } catch (error) {
             toast({
                 title: "Invalid Input",
-                description: "Please paste a valid Git log output.",
+                description: "Please paste a valid git log output.",
                 status: "error",
                 duration: 3000,
-                variant: 'top-accent',
+                position: "top-right",
                 isClosable: true,
-                position: "top"
-            });
+                variant: 'top-accent'
+            })
             return;
         }
     }

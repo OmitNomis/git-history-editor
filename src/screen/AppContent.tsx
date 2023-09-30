@@ -1,19 +1,47 @@
 import { FC, useState } from "react";
-import { Container, Tabs, TabList, Tab, TabPanel, TabPanels } from '@chakra-ui/react'
+import { Container, Tabs, TabList, Tab, TabPanel, TabPanels, useToast } from '@chakra-ui/react'
 import { AppIntroduction } from "../components/AppIntroduction";
+import { formatDecodedOutput } from "../helpers";
 
+interface CommitHistory {
+    hash: string;
+    authorName: string;
+    authorEmail: string;
+    date: string;
+    message: string;
+}
 
 export const AppContent: FC = () => {
 
+    const toast = useToast()
     const [tabIndex, setTabIndex] = useState(0);
-    const [consoleOutput, setConsoleOutput] = useState<string>("");
+    const [originalCommitHistory, setOriginalCommitHistory] = useState<CommitHistory[]>([]);
+    const [commitHistory, setCommitHistory] = useState<CommitHistory[]>([]);
 
     const handleTabsChange = (index: number) => {
+
         setTabIndex(index);
     }
     const handleImport = (output: string) => {
-        console.log(output)
-        setConsoleOutput(output);
+        console.log(formatDecodedOutput(output))
+        try {
+            const parsedOutput = formatDecodedOutput(output);
+            setOriginalCommitHistory(parsedOutput);
+            setCommitHistory(parsedOutput);
+        } catch {
+            toast({
+                title: "Invalid Input",
+                description: "Invalid Commit History Input",
+                status: "error",
+                duration: 3000,
+                position: "top-right",
+                isClosable: true,
+                variant: 'top-accent'
+
+            })
+            return;
+
+        }
     }
 
     return (
