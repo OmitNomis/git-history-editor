@@ -7,7 +7,7 @@ const App = () => {
   return (
     <Flex direction="column" height="100vh">
       <Header />
-      <Flex as={'section'} flexGrow={1} bg={"gray.200"} px={10}>
+      <Flex as={'section'} flexGrow={1} bg={"gray.200"} px={{ base: 2, sm: 4, md: 8 }}>
         <AppContent />
       </Flex>
       <Footer />

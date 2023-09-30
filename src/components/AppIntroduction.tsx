@@ -84,12 +84,11 @@ export const AppIntroduction: FC<AppIntroductionProps> = ({ handleImport }) => {
                 </Text>
             </Box>
             <Box>
-                <Flex alignItems="center" justifyContent={'space-between'}>
-                    <Button bg="gray.800" color="white" onClick={handleCodeCopy} leftIcon={<FaCopy />} px={10} mr={10}
+                <Flex alignItems="center" gap={10}>
+                    <Button bg="gray.800" color="white" onClick={handleCodeCopy} leftIcon={<FaCopy />} px={10} mr={{ base: 2, md: 8 }}
                     >
                         Copy
                     </Button>
-
                     <Code
                         colorScheme="gray"
                         overflowX={"scroll"}
@@ -116,7 +115,7 @@ export const AppIntroduction: FC<AppIntroductionProps> = ({ handleImport }) => {
                         <Text as='span' color={'blue'} cursor={'pointer'} onClick={onClickSample}> Click here</Text> to import a sample Git history.
                     </Text>
                 </Box>
-                <Flex>
+                <Flex flexDir={{ base: 'column', sm: 'row' }} gap={8}>
                     <Input
                         name='consoleOutput'
                         value={consoleOutput}
