@@ -1,19 +1,17 @@
 import { b64UnicodeDecoder } from "./b64UnicodeDecoder";
 import { formatDecodedOutput } from "./formatDecodedOutput";
-import { formatMillisecondToDate } from "./formatMillisecondToDate";
+import { formatMillisecondToDate, formatDateToMillisecond } from "./formatDate";
 import {
   checkSingleEditedContent,
-  checkSingleEditedCommit,
-  checkEntireCommitHistory,
   countEditedCommits,
 } from "./checkEditedContent";
-
+import { generateEditScript } from "./generateEditScript";
 export {
   b64UnicodeDecoder,
   formatDecodedOutput,
   formatMillisecondToDate,
   checkSingleEditedContent,
-  checkSingleEditedCommit,
-  checkEntireCommitHistory,
   countEditedCommits,
+  generateEditScript,
+  formatDateToMillisecond,
 };

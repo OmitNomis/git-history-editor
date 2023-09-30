@@ -10,21 +10,6 @@ export const checkSingleEditedContent = (
   return true;
 };
 
-export const checkSingleEditedCommit = (
-  originalCommit: CommitHistory,
-  editedCommit: CommitHistory
-) => {
-  if (
-    originalCommit.authorName === editedCommit.authorName &&
-    originalCommit.authorEmail === editedCommit.authorEmail &&
-    originalCommit.dateTime === editedCommit.dateTime &&
-    originalCommit.message === editedCommit.message
-  ) {
-    return false;
-  }
-  return true;
-};
-
 export const countEditedCommits = (editedCommitHistory: CommitHistory[]) => {
   let count = 0;
   editedCommitHistory.map((editedCommit) => {
