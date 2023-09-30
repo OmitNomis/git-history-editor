@@ -19,6 +19,7 @@ export const formatDecodedOutput = (decodedOutput: any) => {
         authorEmail,
         dateTime: formattedDate,
         message,
+        edited: false,
       };
       commits.push(commitObj);
     });

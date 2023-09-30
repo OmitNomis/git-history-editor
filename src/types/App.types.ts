@@ -4,6 +4,7 @@ export interface CommitHistory {
   authorEmail: string;
   dateTime: string;
   message: string;
+  edited: boolean;
 }
 
 export interface AppIntroductionProps {
