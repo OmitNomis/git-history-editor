@@ -100,7 +100,7 @@ export const AppIntroduction: FC<AppIntroductionProps> = ({ handleImport }) => {
                     <i>(replace 100 with the number of commits you want to import)</i>
                 </Text>
             </Box>
-            <Box as="form" onSubmit={handleFormSubmit} mt={4}>
+            <Box as="form" onSubmit={handleFormSubmit} mt={4} >
                 <Box mb={5}>
                     <Heading size={"md"} mb={4}>
                         Import Git History
@@ -111,6 +111,7 @@ export const AppIntroduction: FC<AppIntroductionProps> = ({ handleImport }) => {
                 </Box>
                 <Flex>
                     <Input
+                        name='consoleOutput'
                         value={consoleOutput}
                         onChange={(event) => setConsoleOutput(event.target.value)}
                         placeholder="Paste Here"
