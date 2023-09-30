@@ -1,13 +1,17 @@
 import { FC, useEffect, useState } from "react";
 import { CommitHistory, HistoryEditorProps } from "../types/App.types";
-import { Box, TableContainer, Table, Thead, Tbody, Th, Tr, Flex, Text, Icon, Button } from "@chakra-ui/react";
+import { Box, TableContainer, Table, Thead, Tbody, Th, Tr, Flex, Text, Icon, Button, Modal, useToast } from "@chakra-ui/react";
 import { TableFormRow } from "../components/TableFormRow";
 import { countEditedCommits, generateEditScript } from "../helpers";
 import { FaCheck } from "react-icons/fa";
+import { ScriptModalContent } from "../components/modal/ScriptModalContent";
 
 export const HistoryEditor: FC<HistoryEditorProps> = ({ commitHistory }) => {
+    const toast = useToast();
     const originalCommitHistory: CommitHistory[] = commitHistory;
     const [currentCommitHistory, setCurrentCommitHistory] = useState<CommitHistory[]>(commitHistory);
+    const [editScript, setEditScript] = useState<string>("");
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
     useEffect(() => {
         setCurrentCommitHistory(commitHistory);
@@ -23,7 +27,22 @@ export const HistoryEditor: FC<HistoryEditorProps> = ({ commitHistory }) => {
     }
 
     const handleDoneClick = () => {
-        console.log(generateEditScript(currentCommitHistory));
+        try {
+            const editScript = generateEditScript(currentCommitHistory);
+            setEditScript(editScript);
+            setIsModalOpen(true);
+        }
+        catch (error) {
+            toast({
+                title: "Error",
+                description: "Something went wrong. Please try again.",
+                status: "error",
+                duration: 3000,
+                position: "top-right",
+                isClosable: true,
+                variant: 'top-accent'
+            })
+        }
 
     }
 
@@ -78,6 +97,13 @@ export const HistoryEditor: FC<HistoryEditorProps> = ({ commitHistory }) => {
                     </Tbody>
                 </Table>
             </TableContainer>
+            <Modal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                size={"3xl"}
+            >
+                <ScriptModalContent script={editScript} />
+            </Modal>
         </Box >
     );
 }

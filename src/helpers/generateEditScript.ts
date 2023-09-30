@@ -62,7 +62,6 @@ const getEnvDiffList = (editedContent: CommitHistory[]) => {
       envDiffList.push(commit);
     }
   });
-  console.log(envDiffList);
   return envDiffList;
 };
 

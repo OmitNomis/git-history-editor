@@ -29,3 +29,7 @@ export interface TableFormRowProps {
   onCommitEdited: (commit: CommitHistory, index: number) => void;
   originalRow: CommitHistory;
 }
+
+export interface ScriptModalContentProps {
+  script: string;
+}
