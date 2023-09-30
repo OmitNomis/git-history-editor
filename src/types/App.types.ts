@@ -2,7 +2,7 @@ export interface CommitHistory {
   hash: string;
   authorName: string;
   authorEmail: string;
-  time: string;
+  dateTime: string;
   message: string;
 }
 

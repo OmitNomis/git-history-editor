@@ -1,7 +1,6 @@
 import { FC, useEffect, useState } from "react";
 import { CommitHistory, HistoryEditorProps } from "../types/App.types";
-import { Box, TableContainer, Table, Thead, Tbody, Th, Tr, Icon } from "@chakra-ui/react";
-import { FaUndo } from "react-icons/fa";
+import { Box, TableContainer, Table, Thead, Tbody, Th, Tr } from "@chakra-ui/react";
 import { TableFormRow } from "../components/TableFormRow";
 
 
@@ -12,9 +11,6 @@ export const HistoryEditor: FC<HistoryEditorProps> = ({ commitHistory }) => {
     useEffect(() => {
         setCurrentCommitHistory(commitHistory);
     }, [commitHistory]);
-
-    const resetSingleRow = (index: number) => {
-    }
 
     return (
         <Box p={4}>
@@ -33,9 +29,6 @@ export const HistoryEditor: FC<HistoryEditorProps> = ({ commitHistory }) => {
                         {currentCommitHistory.map((commit: CommitHistory, index: number) => {
                             return (
                                 <>
-                                    <Box position={"relative"}>
-                                        <Icon position={"absolute"} as={FaUndo} onClick={() => resetSingleRow(index)} top={5} left={1} />
-                                    </Box>
                                     <TableFormRow
                                         index={index}
                                         commit={commit}

@@ -1,4 +1,5 @@
 import { CommitHistory } from "../types/App.types";
+import { formatMillisecondToDate } from ".";
 
 export const formatDecodedOutput = (decodedOutput: any) => {
   let commitStr = decodedOutput.split(/\n/);
@@ -10,12 +11,13 @@ export const formatDecodedOutput = (decodedOutput: any) => {
       if (split.length !== 5) {
         throw new Error("Invalid commit format");
       }
-      let [hash, authorName, authorEmail, time, message] = split;
+      let [hash, authorName, authorEmail, dateTime, message] = split;
+      let formattedDate = formatMillisecondToDate(dateTime);
       let commitObj = {
         hash,
         authorName,
         authorEmail,
-        time,
+        dateTime: formattedDate,
         message,
       };
       commits.push(commitObj);
