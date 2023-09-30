@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import { Container, Tabs, TabList, Tab, TabPanel, TabPanels, useToast } from '@chakra-ui/react'
+import { Container, Tabs, TabList, Tab, TabPanel, TabPanels, useToast, } from '@chakra-ui/react'
 import { AppIntroduction } from "../components/AppIntroduction";
 import { formatDecodedOutput } from "../helpers";
 import { CommitHistory } from "../types/App.types";
@@ -9,22 +9,18 @@ export const AppContent: FC = () => {
 
     const toast = useToast()
     const [tabIndex, setTabIndex] = useState(0);
-    const [originalCommitHistory, setOriginalCommitHistory] = useState<CommitHistory[]>([]);
     const [commitHistory, setCommitHistory] = useState<CommitHistory[]>([]);
     const [isValidDataLoaded, setIsValidDataLoaded] = useState<boolean>(false);
 
     const handleTabsChange = (index: number) => {
-
         setTabIndex(index);
     }
     const handleImport = (output: string) => {
-        console.log(formatDecodedOutput(output))
         try {
             const parsedOutput = formatDecodedOutput(output);
-            setOriginalCommitHistory(parsedOutput);
-            setCommitHistory(parsedOutput);
             setIsValidDataLoaded(true);
-            handleTabsChange(1)
+            setCommitHistory(parsedOutput);
+            handleTabsChange(1) //switch to edit tab
         } catch {
             toast({
                 title: "Invalid Input",
@@ -40,10 +36,9 @@ export const AppContent: FC = () => {
 
         }
     }
-
     return (
         <Container background={'gray.50'} my={10} maxW={'container.lg'} p={10}>
-            <Tabs tabIndex={tabIndex} onChange={handleTabsChange} isFitted variant={"line"}>
+            <Tabs index={tabIndex} onChange={handleTabsChange} isFitted variant={"line"}>
                 <TabList mb={10}>
                     <Tab>Import</Tab>
                     <Tab isDisabled={!isValidDataLoaded}>Edit</Tab>
@@ -53,7 +48,7 @@ export const AppContent: FC = () => {
                         <AppIntroduction handleImport={handleImport} />
                     </TabPanel>
                     <TabPanel>
-                        <HistoryEditor />
+                        <HistoryEditor commitHistory={commitHistory} />
                     </TabPanel>
                 </TabPanels>
             </Tabs>

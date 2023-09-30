@@ -9,3 +9,7 @@ export interface CommitHistory {
 export interface AppIntroductionProps {
   handleImport: (output: string) => void;
 }
+
+export interface HistoryEditorProps {
+  commitHistory: CommitHistory[];
+}
