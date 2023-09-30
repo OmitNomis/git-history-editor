@@ -45,23 +45,23 @@ export const AppIntroduction: FC<AppIntroductionProps> = ({ handleImport }) => {
                     Introduction
                 </Heading>
                 <Text>
-                    Introducing CommitCraft: Your Git History Sculptor!
+                    Introducing GitRevise: Your Git History Sculptor!
                 </Text>
             </Box>
             <Box>
                 <Heading mb={4} size="md">
-                    What is CommitCraft?
+                    What is GitRevise?
                 </Heading>
                 <Text>
-                    <strong>CommitCraft</strong> is your reliable Git history editor, a tool designed to give your project's past a professional polish. No magic wands, just seamless Git history editing at your fingertips.
+                    <strong>GitRevise</strong> is your reliable Git history editor, a tool designed to give your project's past a professional polish. No magic wands, just seamless Git history editing at your fingertips.
                 </Text>
             </Box>
             <Box>
                 <Heading mb={4} size="md">
-                    Why CommitCraft?
+                    Why GitRevise?
                 </Heading>
                 <Text>
-                    Why settle for a messy Git history when you can have a clean slate? CommitCraft offers:
+                    Why settle for a messy Git history when you can have a clean slate? GitRevise offers:
                 </Text>
             </Box>
             <Box>
@@ -77,10 +77,10 @@ export const AppIntroduction: FC<AppIntroductionProps> = ({ handleImport }) => {
             </Box>
             <Box>
                 <Heading mb={4} size="md">
-                    How Does CommitCraft Work?
+                    How Does GitRevise Work?
                 </Heading>
                 <Text>
-                    Using CommitCraft is as easy as pie. Execute a command in your project directory, paste your git log output, and you're set to refine your Git history.
+                    Using GitRevise is as easy as pie. Execute a command in your project directory, paste your git log output, and you're set to refine your Git history.
                 </Text>
             </Box>
             <Box>

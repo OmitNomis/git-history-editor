@@ -6,7 +6,7 @@ export const Header = () => {
         <Box bg="gray.800" color={"white"} py={10}>
             <Container maxW={'container.lg'} >
                 <Heading as="h1" size="2xl" >
-                    CommitCraft
+                    GitRevise
                 </Heading>
             </Container>
         </Box>
