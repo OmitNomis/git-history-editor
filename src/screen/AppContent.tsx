@@ -21,6 +21,15 @@ export const AppContent: FC = () => {
             setIsValidDataLoaded(true);
             setCommitHistory(parsedOutput);
             handleTabsChange(1)
+            toast({
+                title: "Import Successful",
+                description: "Commit History Imported Successfully",
+                status: "success",
+                duration: 3000,
+                position: "top-right",
+                isClosable: true,
+                variant: 'top-accent'
+            })
         } catch {
             toast({
                 title: "Invalid Input",

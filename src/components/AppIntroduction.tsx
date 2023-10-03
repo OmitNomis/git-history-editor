@@ -3,6 +3,7 @@ import { Box, Button, Code, Flex, Heading, Text, Input, useToast } from "@chakra
 import { FaCopy, FaDownload } from "react-icons/fa";
 import { AppIntroductionProps } from '../types/App.types';
 import { getSamplpeLog, getGitLogCommand, b64UnicodeDecoder } from '../helpers';
+import { WarningContent } from './WarningContent';
 
 export const AppIntroduction: FC<AppIntroductionProps> = ({ handleImport }) => {
 
@@ -169,6 +170,9 @@ export const AppIntroduction: FC<AppIntroductionProps> = ({ handleImport }) => {
                         Import
                     </Button>
                 </Flex>
+            </Box>
+            <Box mt={20} px={20}>
+                <WarningContent />
             </Box>
         </Flex>
     );
