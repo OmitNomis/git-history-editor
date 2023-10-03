@@ -45,7 +45,7 @@ export const AppContent: FC = () => {
         }
     }
     return (
-        <Container background={'gray.50'} my={{ base: 2, md: 8 }} maxW={'container.lg'} p={{ base: 2, md: 8 }}>
+        <Container background={'gray.50'} my={{ base: 2, md: 8 }} maxW={'container.xl'} p={{ base: 2, md: 8 }}>
             <Tabs index={tabIndex} onChange={handleTabsChange} isFitted variant={"line"}>
                 <TabList mb={10}>
                     <Tab>Import</Tab>

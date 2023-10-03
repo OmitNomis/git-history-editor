@@ -127,7 +127,7 @@ export const AppIntroduction: FC<AppIntroductionProps> = ({ handleImport }) => {
                 </Text>
             </Box>
             <Box>
-                <Flex alignItems="center" gap={10}>
+                <Flex justifyContent={'center'} alignItems="center" gap={5} flexWrap={{ base: 'wrap-reverse', sm: 'nowrap' }}>
                     <Button bg="gray.800" color="white" onClick={handleCodeCopy} leftIcon={<FaCopy />} px={10} mr={{ base: 2, md: 8 }}
                     >
                         Copy
@@ -138,10 +138,9 @@ export const AppIntroduction: FC<AppIntroductionProps> = ({ handleImport }) => {
                         p={4}
                         whiteSpace="nowrap"
                         children={`${getGitLogCommand()}`}
-
                     />
                 </Flex>
-                <Text color={"GrayText"} textAlign="center">
+                <Text color={"GrayText"} textAlign="center" mt={{ base: 5, sm: 0 }}>
                     <i>(replace 100 with the number of commits you want to import)</i>
                 </Text>
             </Box>
