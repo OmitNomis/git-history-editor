@@ -1,9 +1,8 @@
 import { useState, FC } from 'react'
 import { Box, Button, Code, Flex, Heading, Text, Input, useToast } from "@chakra-ui/react";
 import { FaCopy, FaDownload } from "react-icons/fa";
-import { b64UnicodeDecoder } from '../helpers';
 import { AppIntroductionProps } from '../types/App.types';
-import { getSamplpeLog } from '../helpers/getSampleLog';
+import { getSamplpeLog, getGitLogCommand, b64UnicodeDecoder } from '../helpers';
 
 export const AppIntroduction: FC<AppIntroductionProps> = ({ handleImport }) => {
 
@@ -11,8 +10,29 @@ export const AppIntroduction: FC<AppIntroductionProps> = ({ handleImport }) => {
     const toast = useToast();
 
     const handleCodeCopy = () => {
-        const gitLogCommand = 'git log -100 --pretty=format:"%H*#%an*#%ae*#%at*#%s" | base64 | tr -d "\n"';
-        navigator.clipboard.writeText(gitLogCommand);
+
+        try {
+            const gitLogCommand = getGitLogCommand();
+            navigator.clipboard.writeText(gitLogCommand);
+            toast({
+                title: "Copied to Clipboard!",
+                status: "success",
+                duration: 3000,
+                position: "top-right",
+                isClosable: true,
+                variant: 'top-accent'
+            })
+        } catch {
+            toast({
+                title: "Error Occured!",
+                description: "There was an error, please copy manually",
+                status: "error",
+                duration: 3000,
+                position: "top-right",
+                isClosable: true,
+                variant: 'top-accent'
+            })
+        }
     };
 
     const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -24,7 +44,7 @@ export const AppIntroduction: FC<AppIntroductionProps> = ({ handleImport }) => {
             handleImport(decodedOutput);
         } catch (error) {
             toast({
-                title: "Invalid Input",
+                title: "Invalid Input!",
                 description: "Please paste a valid git log output.",
                 status: "error",
                 duration: 3000,
@@ -36,8 +56,28 @@ export const AppIntroduction: FC<AppIntroductionProps> = ({ handleImport }) => {
         }
     }
     const onClickSample = async () => {
-        let sampleLog = await getSamplpeLog();
-        setConsoleOutput(sampleLog);
+        try {
+            let sampleLog = await getSamplpeLog();
+            setConsoleOutput(sampleLog);
+            toast({
+                title: "Sample Generated!",
+                status: "success",
+                duration: 3000,
+                position: "top-right",
+                isClosable: true,
+                variant: 'top-accent'
+            })
+        } catch {
+            toast({
+                title: "Error Occured!",
+                description: "Please try again.",
+                status: "error",
+                duration: 3000,
+                position: "top-right",
+                isClosable: true,
+                variant: 'top-accent'
+            })
+        }
     }
 
     return (
@@ -96,7 +136,7 @@ export const AppIntroduction: FC<AppIntroductionProps> = ({ handleImport }) => {
                         overflowX={"scroll"}
                         p={4}
                         whiteSpace="nowrap"
-                        children={`git log -100 --pretty=format:"%H*#%an*#%ae*#%at*#%s" | base64 | tr -d "\n"`}
+                        children={`${getGitLogCommand()}`}
 
                     />
                 </Flex>

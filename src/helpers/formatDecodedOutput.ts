@@ -1,12 +1,12 @@
 import { CommitHistory } from "../types/App.types";
 import { formatMillisecondToDate } from ".";
 
-export const formatDecodedOutput = (decodedOutput: any) => {
+export const formatDecodedOutput = (decodedOutput: string) => {
   let commitStr = decodedOutput.split(/\n/);
   let commits: CommitHistory[] = [];
 
   try {
-    commitStr.map((commit: any) => {
+    commitStr.map((commit: string) => {
       let split = commit.split("*#");
       if (split.length !== 5) {
         throw new Error("Invalid commit format");
