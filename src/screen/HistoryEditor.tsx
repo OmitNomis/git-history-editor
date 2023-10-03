@@ -62,7 +62,6 @@ export const HistoryEditor: FC<HistoryEditorProps> = ({ commitHistory }) => {
                     </Text>
                 </Box>
                 <Box>
-                    {/* done button with tick mark icon at left */}
                     <Button
                         isDisabled={getNumberOfCommitsChanged() === 0}
                         onClick={handleDoneClick}

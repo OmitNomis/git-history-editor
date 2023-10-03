@@ -36,6 +36,7 @@ export const generateEditScript = (editedContent: CommitHistory[]) => {
   if (messageDiffList.length > 0) {
     script += ` --msg-filter \\\n`;
     messageDiffList.map((commit: CommitHistory, index: number) => {
+      lastHash = commit.hash;
       script += `${index === 0 ? "'if" : "elif"} test "$GIT_COMMIT" = "${
         commit.hash
       }"; then\n`;
