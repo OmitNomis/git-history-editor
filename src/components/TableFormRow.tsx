@@ -51,6 +51,7 @@ export const TableFormRow: FC<TableFormRowProps> = ({ commit, index, onCommitEdi
                         value={editedCommit.authorName}>
                         <EditablePreview />
                         <EditableInput
+                            name={`${editedCommit.hash}, authorName`}
                             value={editedCommit.authorName}
                             onChange={(e) => handleChange(e, 'authorName')}
                         />
@@ -62,6 +63,7 @@ export const TableFormRow: FC<TableFormRowProps> = ({ commit, index, onCommitEdi
                     >
                         <EditablePreview />
                         <EditableInput
+                            name={`${editedCommit.hash}, authorEmail`}
                             value={editedCommit.authorEmail}
                             onChange={(e) => handleChange(e, 'authorEmail')}
                         />
@@ -69,6 +71,7 @@ export const TableFormRow: FC<TableFormRowProps> = ({ commit, index, onCommitEdi
                 </Td>
                 <Td>
                     <Input
+                        name={`${editedCommit.hash}, dateTime`}
                         color={editedCommit.edited.dateTime ? 'red' : 'black'}
                         value={editedCommit.dateTime}
                         type='datetime-local'
@@ -82,6 +85,7 @@ export const TableFormRow: FC<TableFormRowProps> = ({ commit, index, onCommitEdi
                     >
                         <EditablePreview />
                         <EditableInput
+                            name={`${editedCommit.hash}, message`}
                             value={editedCommit.message}
                             onChange={(e) => handleChange(e, 'message')}
                         />
