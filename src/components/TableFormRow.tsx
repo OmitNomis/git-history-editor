@@ -15,14 +15,13 @@ export const TableFormRow: FC<TableFormRowProps> = ({ commit, index, onCommitEdi
         onCommitEdited(editedCommit, index);
     }, [editedCommit]);
 
-
-    const handleChange = (e: any, field: string) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setEditedCommit({
             ...editedCommit,
-            [field]: e.target.value,
+            [e.target.name]: e.target.value,
             edited: {
                 ...editedCommit.edited,
-                [field]: checkSingleEditedContent(originalRow[field], e.target.value)
+                [e.target.name]: checkSingleEditedContent(originalRow[e.target.name], e.target.value)
             }
         })
     }
@@ -51,9 +50,9 @@ export const TableFormRow: FC<TableFormRowProps> = ({ commit, index, onCommitEdi
                         value={editedCommit.authorName}>
                         <EditablePreview />
                         <EditableInput
-                            name={`${editedCommit.hash}, authorName`}
+                            name='authorName'
                             value={editedCommit.authorName}
-                            onChange={(e) => handleChange(e, 'authorName')}
+                            onChange={handleChange}
                         />
                     </Editable></Td>
                 <Td>
@@ -63,19 +62,19 @@ export const TableFormRow: FC<TableFormRowProps> = ({ commit, index, onCommitEdi
                     >
                         <EditablePreview />
                         <EditableInput
-                            name={`${editedCommit.hash}, authorEmail`}
+                            name='authorEmail'
                             value={editedCommit.authorEmail}
-                            onChange={(e) => handleChange(e, 'authorEmail')}
+                            onChange={handleChange}
                         />
                     </Editable>
                 </Td>
                 <Td>
                     <Input
-                        name={`${editedCommit.hash}, dateTime`}
+                        name='dateTime'
                         color={editedCommit.edited.dateTime ? 'red' : 'black'}
                         value={editedCommit.dateTime}
                         type='datetime-local'
-                        onChange={(e) => handleChange(e, 'dateTime')}
+                        onChange={handleChange}
                     />
                 </Td>
                 <Td>
@@ -85,9 +84,9 @@ export const TableFormRow: FC<TableFormRowProps> = ({ commit, index, onCommitEdi
                     >
                         <EditablePreview />
                         <EditableInput
-                            name={`${editedCommit.hash}, message`}
+                            name='message'
                             value={editedCommit.message}
-                            onChange={(e) => handleChange(e, 'message')}
+                            onChange={handleChange}
                         />
                     </Editable>
                 </Td>
