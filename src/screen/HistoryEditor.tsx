@@ -31,6 +31,15 @@ export const HistoryEditor: FC<HistoryEditorProps> = ({ commitHistory }) => {
             const editScript = generateEditScript(currentCommitHistory);
             setEditScript(editScript);
             setIsModalOpen(true);
+            toast({
+                title: "Success",
+                description: "Edit script generated successfully.",
+                status: "success",
+                duration: 3000,
+                position: "top-right",
+                isClosable: true,
+                variant: 'top-accent'
+            })
         }
         catch (error) {
             toast({
