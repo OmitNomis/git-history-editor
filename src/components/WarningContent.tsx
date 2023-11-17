@@ -2,7 +2,7 @@ import { Box, Code, Heading, Text } from "@chakra-ui/react";
 
 export const WarningContent = () => {
   return (
-    <Box p={10} pt={4} bg={"red.200"} rounded={"md"}>
+    <Box p={{ base: 2, sm: 4 }} pt={4} bg={"red.200"} rounded={"md"}>
       <Heading textAlign={"center"} size={"lg"} mb={4}>
         Warning!
       </Heading>
