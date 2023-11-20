@@ -208,7 +208,7 @@ export const AppIntroduction: FC<AppIntroductionProps> = ({ handleImport }) => {
           </Button>
         </Flex>
       </Box>
-      <Box mt={20} px={20}>
+      <Box mt={{ base: 10, md: 20 }} px={{ base: 0, sm: 10, md: 20 }}>
         <WarningContent />
       </Box>
     </Flex>
