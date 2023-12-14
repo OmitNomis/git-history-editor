@@ -3,7 +3,7 @@
 ## Introduction
 
 - A web application built with Vite + React + Typescript
-- Live Preview: [Demo](https://gitrevise.netlify.app)
+- Live Preview: [Git Revise](https://gitrevise.netlify.app)
 
 ## Getting Started
 
