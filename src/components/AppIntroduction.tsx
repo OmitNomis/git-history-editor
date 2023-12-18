@@ -46,9 +46,8 @@ export const AppIntroduction: FC<AppIntroductionProps> = ({ handleImport }) => {
   const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     let decodedOutput;
-    const formattedConsoleOutput = consoleOutput.replace(/[^a-zA-Z0-9]/g, "");
     try {
-      decodedOutput = b64UnicodeDecoder(formattedConsoleOutput);
+      decodedOutput = b64UnicodeDecoder(consoleOutput);
       handleImport(decodedOutput);
     } catch (error) {
       toast({
