@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { FaCopy, FaDownload } from "react-icons/fa";
 import { AppIntroductionProps } from "../types/App.types";
-import { getSamplpeLog, getGitLogCommand, b64UnicodeDecoder } from "../helpers";
+import { getSampleLog, getGitLogCommand, b64UnicodeDecoder } from "../helpers";
 import { WarningContent } from "./WarningContent";
 
 export const AppIntroduction: FC<AppIntroductionProps> = ({ handleImport }) => {
@@ -20,71 +20,33 @@ export const AppIntroduction: FC<AppIntroductionProps> = ({ handleImport }) => {
 
   const handleCodeCopy = () => {
     try {
-      const gitLogCommand = getGitLogCommand();
-      navigator.clipboard.writeText(gitLogCommand);
-      toast({
-        title: "Copied to Clipboard!",
-        status: "success",
-        duration: 3000,
-        position: "top-right",
-        isClosable: true,
-        variant: "top-accent",
-      });
+      navigator.clipboard.writeText(getGitLogCommand());
+      toast({ title: "Copied to Clipboard!", status: "success" });
     } catch {
       toast({
         title: "Error Occured!",
         description: "There was an error, please copy manually",
         status: "error",
-        duration: 3000,
-        position: "top-right",
-        isClosable: true,
-        variant: "top-accent",
       });
     }
   };
 
   const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    let decodedOutput;
     try {
-      decodedOutput = b64UnicodeDecoder(consoleOutput);
-      handleImport(decodedOutput);
+      handleImport(b64UnicodeDecoder(consoleOutput));
     } catch (error) {
       toast({
         title: "Invalid Input!",
         description: "Please paste a valid git log output.",
         status: "error",
-        duration: 3000,
-        position: "top-right",
-        isClosable: true,
-        variant: "top-accent",
       });
-      return;
     }
   };
-  const onClickSample = async () => {
-    try {
-      let sampleLog = await getSamplpeLog();
-      setConsoleOutput(sampleLog);
-      toast({
-        title: "Sample Generated!",
-        status: "success",
-        duration: 3000,
-        position: "top-right",
-        isClosable: true,
-        variant: "top-accent",
-      });
-    } catch {
-      toast({
-        title: "Error Occured!",
-        description: "Please try again.",
-        status: "error",
-        duration: 3000,
-        position: "top-right",
-        isClosable: true,
-        variant: "top-accent",
-      });
-    }
+
+  const onClickSample = () => {
+    setConsoleOutput(getSampleLog());
+    toast({ title: "Sample Generated!", status: "success" });
   };
 
   return (
@@ -145,8 +107,7 @@ export const AppIntroduction: FC<AppIntroductionProps> = ({ handleImport }) => {
           gap={5}
           flexWrap={{ base: "wrap-reverse", sm: "nowrap" }}>
           <Button
-            bg="gray.800"
-            color="white"
+            colorScheme="brand"
             onClick={handleCodeCopy}
             leftIcon={<FaCopy />}
             px={10}
@@ -179,8 +140,10 @@ export const AppIntroduction: FC<AppIntroductionProps> = ({ handleImport }) => {
             Just wanna try?
             <Text
               as="span"
-              color={"blue"}
-              cursor={"pointer"}
+              color="brand.500"
+              fontWeight="medium"
+              cursor="pointer"
+              _hover={{ textDecoration: "underline" }}
               onClick={onClickSample}>
               {" "}
               Click here
@@ -197,8 +160,7 @@ export const AppIntroduction: FC<AppIntroductionProps> = ({ handleImport }) => {
             variant={"flushed"}
           />
           <Button
-            bg={"gray.800"}
-            color="white"
+            colorScheme="brand"
             type="submit"
             leftIcon={<FaDownload />}
             px={{ base: 0, sm: 10 }}

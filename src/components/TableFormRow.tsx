@@ -9,8 +9,11 @@ import {
   Flex,
 } from "@chakra-ui/react";
 import { FC, useEffect, useState } from "react";
-import { TableFormRowProps } from "../types/App.types";
-import { CommitHistory } from "../types/App.types";
+import {
+  CommitHistory,
+  EditableField,
+  TableFormRowProps,
+} from "../types/App.types";
 import { FaUndo } from "react-icons/fa";
 import { checkSingleEditedContent } from "../helpers";
 
@@ -27,18 +30,16 @@ export const TableFormRow: FC<TableFormRowProps> = ({
 
   useEffect(() => {
     onCommitEdited(editedCommit, index);
-  }, [editedCommit]);
+  }, [editedCommit, index, onCommitEdited]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const field = e.target.name as EditableField;
     setEditedCommit({
       ...editedCommit,
-      [e.target.name]: e.target.value,
+      [field]: e.target.value,
       edited: {
         ...editedCommit.edited,
-        [e.target.name]: checkSingleEditedContent(
-          originalRow[e.target.name],
-          e.target.value
-        ),
+        [field]: checkSingleEditedContent(originalRow[field], e.target.value),
       },
     });
   };
@@ -53,11 +54,10 @@ export const TableFormRow: FC<TableFormRowProps> = ({
           <Flex gap={3} alignItems={"center"}>
             <Icon
               cursor={checkAnyEdited() ? "pointer" : "not-allowed"}
-              color={checkAnyEdited() ? "red" : "gray.500"}
+              color={checkAnyEdited() ? "brand.500" : "gray.400"}
               as={FaUndo}
               onClick={reset}
-              left={1}
-              top={7}
+              title="Reset this commit"
             />
             {editedCommit.hash.slice(0, 7)}
           </Flex>

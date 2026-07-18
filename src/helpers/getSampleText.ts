@@ -1,6 +1,6 @@
 import sampleData from "../data/sampledata.json";
 
-export const getSamplpeLog = () => {
+export const getSampleLog = () => {
   return sampleData.sampleLog;
 };
 

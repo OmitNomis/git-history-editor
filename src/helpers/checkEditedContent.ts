@@ -3,19 +3,9 @@ import { CommitHistory } from "../types/App.types";
 export const checkSingleEditedContent = (
   originalContent: string,
   editedContent: string
-) => {
-  if (originalContent === editedContent) {
-    return false;
-  }
-  return true;
-};
+) => originalContent !== editedContent;
 
-export const countEditedCommits = (editedCommitHistory: CommitHistory[]) => {
-  let count = 0;
-  editedCommitHistory.map((editedCommit) => {
-    if (Object.values(editedCommit.edited).includes(true)) {
-      count++;
-    }
-  });
-  return count;
-};
+export const countEditedCommits = (editedCommitHistory: CommitHistory[]) =>
+  editedCommitHistory.filter((commit) =>
+    Object.values(commit.edited).includes(true)
+  ).length;

@@ -9,7 +9,7 @@ export const generateEditScript = (editedContent: CommitHistory[]) => {
   let lastHash = "";
 
   if (envDiffList.length > 0) {
-    envDiffList.map((commit: CommitHistory, index: number) => {
+    envDiffList.forEach((commit: CommitHistory, index: number) => {
       lastHash = commit.hash;
       script += `${
         index === 0 ? "--env-filter \\\n'if" : "elif"
@@ -35,7 +35,7 @@ export const generateEditScript = (editedContent: CommitHistory[]) => {
   }
   if (messageDiffList.length > 0) {
     script += ` --msg-filter \\\n`;
-    messageDiffList.map((commit: CommitHistory, index: number) => {
+    messageDiffList.forEach((commit: CommitHistory, index: number) => {
       lastHash = commit.hash;
       script += `${index === 0 ? "'if" : "elif"} test "$GIT_COMMIT" = "${
         commit.hash
@@ -60,26 +60,13 @@ export const generateEditScript = (editedContent: CommitHistory[]) => {
   return script;
 };
 
-const getEnvDiffList = (editedContent: CommitHistory[]) => {
-  let envDiffList: any = [];
-  editedContent.map((commit) => {
-    if (
+const getEnvDiffList = (editedContent: CommitHistory[]): CommitHistory[] =>
+  editedContent.filter(
+    (commit) =>
       commit.edited.authorEmail ||
       commit.edited.authorName ||
       commit.edited.dateTime
-    ) {
-      envDiffList.push(commit);
-    }
-  });
-  return envDiffList;
-};
+  );
 
-const getMessageDiffList = (editedContent: CommitHistory[]) => {
-  let messageDiffList: any = [];
-  editedContent.map((commit) => {
-    if (commit.edited.message) {
-      messageDiffList.push(commit);
-    }
-  });
-  return messageDiffList;
-};
+const getMessageDiffList = (editedContent: CommitHistory[]): CommitHistory[] =>
+  editedContent.filter((commit) => commit.edited.message);

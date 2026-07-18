@@ -43,8 +43,7 @@ export const ScriptModalContent: FC<ScriptModalContentProps> = ({ script }) => {
             </Code>
             <Flex my={4} justifyContent={"center"}>
               <Button
-                bg="gray.800"
-                color="white"
+                colorScheme="brand"
                 onClick={handleCodeCopy}
                 leftIcon={<FaCopy />}
                 w={"full"}>

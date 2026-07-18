@@ -11,7 +11,7 @@ export const Footer = () => {
           flexDirection={{ base: "column", md: "row" }}
           gap={6}>
           <Flex flex={1} alignItems={"center"} justifyContent={"flex-start"}>
-            <Text>© 2023 GitRevise</Text>
+            <Text>© {new Date().getFullYear()} GitRevise</Text>
           </Flex>
           <Flex flex={1} alignItems={"center"} justifyContent={"center"}>
             <Icon
@@ -21,6 +21,8 @@ export const Footer = () => {
               cursor={"pointer"}
               as={FaGithub}
               boxSize={6}
+              transition="color 0.2s"
+              _hover={{ color: "brand.400" }}
             />
           </Flex>
           <Flex flex={1} justifyContent={"flex-end"}>

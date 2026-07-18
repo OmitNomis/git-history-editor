@@ -5,8 +5,11 @@ export interface CommitHistory {
   dateTime: string;
   message: string;
   edited: EditedCommit;
-  [key: string]: any;
 }
+
+// The commit fields the user can edit inline. Their keys line up with
+// EditedCommit, and each maps to a string value on CommitHistory.
+export type EditableField = keyof EditedCommit;
 
 export interface EditedCommit {
   authorName: boolean;

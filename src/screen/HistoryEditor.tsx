@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useCallback, useEffect, useState } from "react";
 import { CommitHistory, HistoryEditorProps } from "../types/App.types";
 import {
   Box,
@@ -32,11 +32,15 @@ export const HistoryEditor: FC<HistoryEditorProps> = ({ commitHistory }) => {
     setCurrentCommitHistory(commitHistory);
   }, [commitHistory]);
 
-  const manageCommitEdited = (commit: CommitHistory, index: number) => {
-    const newCommitHistory: CommitHistory[] = [...currentCommitHistory];
-    newCommitHistory[index] = commit;
-    setCurrentCommitHistory(newCommitHistory);
-  };
+  // Stable identity (functional update) so child rows can list it as an effect
+  // dependency without triggering a re-render loop.
+  const manageCommitEdited = useCallback((commit: CommitHistory, index: number) => {
+    setCurrentCommitHistory((prev) => {
+      const next = [...prev];
+      next[index] = commit;
+      return next;
+    });
+  }, []);
   const getNumberOfCommitsChanged = () => {
     return countEditedCommits(currentCommitHistory);
   };
@@ -50,20 +54,12 @@ export const HistoryEditor: FC<HistoryEditorProps> = ({ commitHistory }) => {
         title: "Success",
         description: "Edit script generated successfully.",
         status: "success",
-        duration: 3000,
-        position: "top-right",
-        isClosable: true,
-        variant: "top-accent",
       });
     } catch (error) {
       toast({
         title: "Error",
         description: "Something went wrong. Please try again.",
         status: "error",
-        duration: 3000,
-        position: "top-right",
-        isClosable: true,
-        variant: "top-accent",
       });
     }
   };

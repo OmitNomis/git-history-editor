@@ -1,5 +1,5 @@
 export const b64UnicodeDecoder = (str: string) => {
-  let cleanStr = str.replace(/[^a-zA-Z0-9+/=]/g, "");
+  const cleanStr = str.replace(/[^a-zA-Z0-9+/=]/g, "");
   try {
     return decodeURIComponent(
       atob(cleanStr)

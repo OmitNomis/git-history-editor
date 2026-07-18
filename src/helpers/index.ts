@@ -1,7 +1,7 @@
 import { b64UnicodeDecoder } from "./b64UnicodeDecoder";
 import { formatDecodedOutput } from "./formatDecodedOutput";
 import { formatMillisecondToDate, formatDateToMillisecond } from "./formatDate";
-import { getSamplpeLog, getGitLogCommand } from "./getSampleText";
+import { getSampleLog, getGitLogCommand } from "./getSampleText";
 import {
   checkSingleEditedContent,
   countEditedCommits,
@@ -15,6 +15,6 @@ export {
   countEditedCommits,
   generateEditScript,
   formatDateToMillisecond,
-  getSamplpeLog,
+  getSampleLog,
   getGitLogCommand,
 };

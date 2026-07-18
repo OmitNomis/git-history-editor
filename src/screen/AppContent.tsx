@@ -32,30 +32,26 @@ export const AppContent: FC = () => {
         title: "Import Successful",
         description: "Commit History Imported Successfully",
         status: "success",
-        duration: 3000,
-        position: "top-right",
-        isClosable: true,
-        variant: "top-accent",
       });
     } catch {
       toast({
         title: "Invalid Input",
         description: "Invalid Commit History Input",
         status: "error",
-        duration: 3000,
-        position: "top-right",
-        isClosable: true,
-        variant: "top-accent",
       });
       return;
     }
   };
   return (
     <Container
-      background={"gray.50"}
+      background={"white"}
       my={{ base: 2, md: 8 }}
       maxW={"container.xl"}
-      p={{ base: 2, md: 8 }}>
+      p={{ base: 4, md: 8 }}
+      rounded={{ base: "lg", md: "xl" }}
+      boxShadow={"sm"}
+      borderWidth={"1px"}
+      borderColor={"gray.200"}>
       <Tabs
         index={tabIndex}
         onChange={handleTabsChange}
