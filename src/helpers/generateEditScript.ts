@@ -44,10 +44,18 @@ export const generateEditScript = (editedContent: CommitHistory[]) => {
     });
     script += `else cat\nfi'`;
   }
-  script += ` ${lastHash.slice(
-    0,
-    7
-  )}^..HEAD && rm -fr "$(git rev-parse --git-dir)/refs/original/"`;
+  // Scope the rewrite to a revision range. Normally we anchor on the parent of
+  // the oldest edited commit (`<hash>^..HEAD`). But the repo's root commit has
+  // no parent, so `<root>^` is an invalid revision and filter-branch fails.
+  // When the oldest edited commit is the earliest imported commit (i.e. it may
+  // be the root), rewrite the whole branch with `HEAD` instead.
+  const oldestImportedHash = editedContent[editedContent.length - 1]?.hash;
+  const isRootCommitEdited = lastHash === oldestImportedHash;
+  const revisionRange = isRootCommitEdited
+    ? "HEAD"
+    : `${lastHash.slice(0, 7)}^..HEAD`;
+
+  script += ` ${revisionRange} && rm -fr "$(git rev-parse --git-dir)/refs/original/"`;
 
   return script;
 };
