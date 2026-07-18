@@ -102,6 +102,10 @@ The app runs at [http://localhost:5173](http://localhost:5173).
 Issues and pull requests are welcome. If you're fixing a bug or adding a
 feature, please run `yarn lint` before opening a PR.
 
+## License
+
+Released under the [MIT License](LICENSE).
+
 ---
 
 Made with ❤️ by [OmitNomis](https://github.com/OmitNomis)
